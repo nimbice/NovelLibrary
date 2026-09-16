@@ -46,6 +46,7 @@ class DataCenter(context: Context) {
         private const val APP_VERSION_CODE = "appVersionCode"
         private const val TEXT_SIZE = "textSize"
         private const val READER_MODE = "cleanPages"
+        private const val PAGE_MODE = "readerPageMode"
         private const val JAVASCRIPT = "javascript"
         private const val LANGUAGE = "language"
         private const val FOOLED = "wasFooled"
@@ -210,6 +211,11 @@ class DataCenter(context: Context) {
     var readerMode: Boolean
         get() = prefs.getBoolean(READER_MODE, false)
         set(value) = prefs.edit().putBoolean(READER_MODE, value).apply()
+
+    /** Paged reader: chapters are laid out as screen-sized pages turned by swiping or tapping the screen edges. */
+    var pageMode: Boolean
+        get() = prefs.getBoolean(PAGE_MODE, false)
+        set(value) = prefs.edit().putBoolean(PAGE_MODE, value).apply()
 
     var javascriptDisabled: Boolean
         get() = prefs.getBoolean(JAVASCRIPT, false)
