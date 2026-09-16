@@ -13,6 +13,7 @@ import uy.kohesive.injekt.injectLazy
 
 data class ReaderUiState(
     val isReaderMode: Boolean = false,
+    val isPageMode: Boolean = false,
     val isDarkTheme: Boolean = true,
     val isJavascriptEnabled: Boolean = true,
     val textSize: Int = 0,
@@ -53,6 +54,7 @@ class ReaderViewModel : ViewModel() {
         _uiState.update {
             it.copy(
                 isReaderMode = dataCenter.readerMode,
+                isPageMode = dataCenter.pageMode,
                 isDarkTheme = dataCenter.isDarkTheme,
                 isJavascriptEnabled = !dataCenter.javascriptDisabled,
                 textSize = dataCenter.textSize,
@@ -97,6 +99,12 @@ class ReaderViewModel : ViewModel() {
             )
         }
         EventBus.getDefault().post(ReaderSettingsEvent(ReaderSettingsEvent.READER_MODE))
+    }
+
+    fun setPageMode(enabled: Boolean) {
+        dataCenter.pageMode = enabled
+        _uiState.update { it.copy(isPageMode = enabled) }
+        EventBus.getDefault().post(ReaderSettingsEvent(ReaderSettingsEvent.PAGE_MODE))
     }
 
     fun setJavascriptEnabled(enabled: Boolean) {
@@ -146,6 +154,12 @@ class ReaderViewModel : ViewModel() {
         dataCenter.nightModeTextColor = color
         _uiState.update { it.copy(nightTextColor = color) }
         EventBus.getDefault().post(ReaderSettingsEvent(ReaderSettingsEvent.NIGHT_MODE))
+    }
+
+    /** Volume buttons scroll the chapter, or turn pages in page mode. */
+    fun setEnableVolumeScroll(enabled: Boolean) {
+        dataCenter.enableVolumeScroll = enabled
+        _uiState.update { it.copy(enableVolumeScroll = enabled) }
     }
 
     fun setKeepScreenOn(enabled: Boolean) {
