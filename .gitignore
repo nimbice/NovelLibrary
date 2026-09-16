@@ -254,3 +254,6 @@ app/mirror/release/output.json
 !gradle/wrapper/gradle-wrapper.properties
 .idea/deploymentTargetSelector.xml
 .idea/appInsightsSettings.xml
+
+# Claude Code personal overrides
+.claude/settings.local.json
